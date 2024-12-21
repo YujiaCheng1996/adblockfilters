@@ -1,0 +1,19 @@
+# https://github.com/217heidai/adblockfilters/issues/25
+knicks.jd.com
+# https://github.com/217heidai/adblockfilters/issues/29
+cmts.iqiyi.com
+# https://github.com/217heidai/adblockfilters/issues/32
+paypalobjects.com
+www.paypalobjects.com
+# https://github.com/217heidai/adblockfilters/issues/35
+statics.123pan.com
+# https://github.com/217heidai/adblockfilters/issues/37
+nj.t.bcsp2p.baidu.com
+# https://github.com/217heidai/adblockfilters/issues/59
+vv.video.qq.com
+# https://github.com/217heidai/adblockfilters/issues/66
+tracker.ai.xiaomi.com
+# https://github.com/217heidai/adblockfilters/issues/82
+staticsns.cdn.bcebos.com
+# https://github.com/217heidai/adblockfilters/issues/84
+jnn-pa.googleapis.com
