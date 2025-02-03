@@ -1,0 +1,245 @@
+! Title: Fuck Fuckadblock
+! Description: Filters for blocking pop-ups and anti-adblock bypass
+! Author: Bogachenko Vyacheslav
+! Expires: 3 days
+! Homepage: https://github.com/bogachenko/fuckfuckadblock
+! Licence: https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/LICENSE.md
+! RAW: https://raw.githubusercontent.com/bogachenko/fuckfuckadblock/master/fuckfuckadblock.txt
+! CDN: https://github.com/bogachenko/fuckfuckadblock/wiki/Mirror-lists
+! DONATE: https://github.com/bogachenko/fuckfuckadblock/wiki/Donate
+
+! CASCADING STYLE SHEETS START
+##div[style^="position: fixed; inset: 0px; z-index: 2147483647; pointer-events: auto;"]
+##div[style^="position:fixed;inset:0px;z-index:2147483647;background:black;opacity:0.01"]
+##div[style^="position: fixed; inset: 0px; z-index: 2147483647; background: black; opacity: 0.01"]
+##div[style^="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 2147483646;"]
+
+! SCRIPTS START
+@@*/ad?type=$script,~third-party
+@@*/adcgi?$script,~third-party
+@@/^https?:\/\/(www\.)?[^\s]+\/ad[svbxo]?(\.min)?\.js/$script
+@@/^https?:\/\/(www\.)?[^\s]+\/ad[vs](er(ve)?t?(ise|ising|isement)?)?(\.min)?\.js/$script
+@@||yandex.ru/ads/system/adsdk.js|$script,third-party
+/^https?:\/\/[a-z]{8,15}\.(com|net)\/tag\.min\.js$/$script,third-party
+||imasdk.googleapis.com^$script,redirect-rule=google-ima.js
+||googletagmanager.com/gtag/$redirect-rule=googletagmanager_gtm.js,script
+||googletagmanager.com/gtm.js$redirect-rule=googletagmanager_gtm.js,script
+||googletagservices.com/tag/$redirect-rule=googletagservices_gpt.js,script
+||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js$script,redirect=googlesyndication_adsbygoogle.js
+|http*:*/blockadblock-$redirect=fuckadblock.js-3.2.0,script
+|http*:*/blockadblock.$redirect=fuckadblock.js-3.2.0,script
+|http*:*/fuckadblock-$redirect=fuckadblock.js-3.2.0,script
+|http*:*/fuckadblock.$redirect=fuckadblock.js-3.2.0,script
+
+! XMLHTTPREQUEST START
+||srtb.msn.com^$xmlhttprequest,redirect-rule=nooptext
+||googletagmanager.com/gtag/$redirect-rule=googletagmanager_gtm.js,xmlhttprequest
+||googletagmanager.com/gtm.js$redirect-rule=googletagmanager_gtm.js,xmlhttprequest
+||googletagservices.com/tag/$redirect-rule=googletagservices_gpt.js,xmlhttprequest
+||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js$xmlhttprequest,redirect=googlesyndication_adsbygoogle.js
+/^https?:\/\/([a-z]{2}\.)?[0-9a-z]{7,16}\.com\/1clkn\/\d{4,5}$/$third-party,script
+@@/^https?:\/\/(www\.)?[^\s]+\/ad[svbxo]?(\.min)?\.js/$xmlhttprequest
+@@/^https?:\/\/(www\.)?[^\s]+\/ad[vs](er(ve)?t?(ise|ising|isement)?)?(\.min)?\.js/$xmlhttprequest
+/^https?:\/\/[-a-z]{5,12}\.[a-z]{3,6}\/[0-9a-h]{1,17}\?[0-9a-zA-Z]{1,21}=[%0-9a-zA-Z]{200,1300}/$xmlhttprequest,third-party,match-case
+
+! SUBDOCUMENT START
+|http*:*/player/player_ads.html$subdocument,~third-party,redirect-rule=noopframe
+
+! IMAGE START
+||googleads.g.doubleclick.net/favicon.ico$image,redirect=32x32.png
+
+! POPUP START
+/^https?:\/\/[^\s]+\/[45](0[01])?\/\d{7}/$popunder,popup
+/[?&]key=[a-f0-9]{32}$/$popunder,popup
+
+! COMBINED START
+/\?key=[0-9a-f]{32}$/$document,xmlhttprequest,match-case,subdocument,script
+/^https?:\/\/(([0-9a-z]{7,10}|www)\.)?.*\.com\/(([a-z0-9]{2}\/){2,3})?[0-9a-f]{32}\.js(on)?$/$match-case,script,third-party,xmlhttprequest
+/^https?:\/\/([a-z]{2,4}\.)?[0-9a-z]{7,16}\.[a-z]{3,7}\/[0-9a-zA-Z]{10,27}\/[a-zA-Z0-9]{4,6}$/$third-party,script,xmlhttprequest,subdocument,popup,match-case
+/^https?:\/\/([a-z]{2}\.)?.*\/[45](0[01])?\/\d{7}$/$third-party,script,document,subdocument,xmlhttprequest,match-case
+
+! EMPTY START
+||magsrv.com^$empty
+
+! expressurl.net
+@@*$domain=expressurl.net,generichide
+expressurl.net##+js(abort-on-property-read.js, app_vars.force_disable_adblock)
+expressurl.net##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! mixrootmod.com
+@@$domain=mixrootmod.com,generichide
+mixrootmod.com##+js(no-setInterval-if.js, css_class.show)
+
+! 6ziz.com
+6ziz.com##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! altervista.org
+altervista.org##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! mlwbd.com
+fojik.site##+js(abort-current-script.js, document.documentElement, break)
+
+! doodstream.com
+doodstream.com,dooodster.com,d0000d.com,dood.*##+js(abort-current-script, decodeURI, decodeURIComponent)
+doodstream.com,dooodster.com,d0000d.com,dood.*##+js(no-window-open-if.js)
+doodstream.com,dooodster.com,d0000d.com,dood.*##+js(abort-current-script.js, document.documentElement, break)
+
+! voe.sx
+||imasdk.googleapis.com/js/sdkloader/ima3.js$script,third-party,redirect-rule=google-ima.js,domain=robertordercharacter.com|voe.sx
+robertordercharacter.com,voe.sx##+js(no-window-open-if)
+
+! waploaded.com
+waploaded.com##+js(addEventListener-defuser.js, /^(?:load|click)$/, popMagic)
+
+! vidsrc.xyz
+vidsrc.*##+js(no-window-open-if.js)
+
+! sexpopcorn.com
+sexpopcorn.com##+js(addEventListener-defuser.js, /^(?:load|click)$/, popMagic)
+
+! smashystream.com
+smashy.stream##+js(no-window-open-if.js)
+
+! aerolla.net
+aeromods.app,aeroinsta.com,aerolla.net,aerowitter.com##+js(abort-on-property-read.js, HTMLIFrameElement)
+
+! megaup.net
+megaup.net##+js(no-window-open-if.js)
+megaup.net##+js(abort-current-inline-script.js, Math, break)
+
+! farlad.com
+farlad.com##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! sendvid.com
+sendvid.com##+js(no-window-open-if.js)
+
+! nxbrew.net
+nxbrew.net##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! abysscdn.com
+abysscdn.com##+js(no-window-open-if.js)
+
+! vidguard.site
+vidguard.site##+js(no-window-open-if.js)
+
+! waaw.to
+waaw.to##+js(no-window-open-if.js)
+
+! vudeo.ws
+vudeo.ws##+js(no-window-open-if.js)
+vudeo.ws##+js(abort-current-script.js, document.documentElement, break)
+
+! uqload.net
+uqload.net##+js(abort-current-script.js, document.documentElement, break)
+
+! hqq.to
+hqq.to##+js(no-window-open-if.js)
+
+! hoca4.com
+hoca4.com##+js(abort-current-script.js, document.documentElement, break)
+
+! tarjetarojaenvivo.lat
+tarjetarojaenvivo.lat##+js(abort-current-script.js, document.documentElement, break)
+
+! capo4play.com
+capo4play.com##+js(abort-current-script.js, document.documentElement, break)
+
+! rojadirectaenhd.net
+rojadirectaenhd.net##+js(abort-current-script.js, document.documentElement, break)
+
+! visorsmr.com
+visorsmr.com##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! gayvidsclub.com
+gayvidsclub.com##+js(no-window-open-if.js)
+
+! aethersx2.net
+aethersx2.net##+js(no-setTimeout-if.js, ai_adb)
+
+! mixdrop.to
+mixdrop.*##+js(no-window-open-if.js)
+mixdrop.*##+js(abort-current-inline-script.js, Math, break)
+
+! filemoon.sx
+fu-1fbolpvq.nl,filemoon.*##+js(no-window-open-if.js)
+
+! veev.to
+veev.to##+js(no-window-open-if.js)
+
+! princetechzone.in
+princetechzone.in##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! pokeca-chart.com
+pokeca-chart.com##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! noodlemagazine.com
+noodlemagazine.com##+js(addEventListener-defuser.js, /^(?:load|click)$/, popMagic)
+
+! moviesjoyhd.org
+moviesjoyhd.*,moviesjoytv.*##+js(abort-current-script.js, Object.defineProperty, break)
+
+! streamingnow.mov
+streamingnow.mov##+js(abort-on-property-read.js, open)
+streamingnow.mov##+js(abort-current-inline-script.js, document.createElement, script)
+
+! ustream.to
+ustream.to##+js(no-window-open-if.js)
+ustream.to##+js(abort-current-inline-script.js, document.createElement, script)
+
+! upfiles.com
+upfiles.*##+js(no-window-open-if.js)
+upfiles.*##+js(abort-current-inline-script.js, document.createElement, script)
+upfiles.*##+js(set-constant.js, shouldOpenPopUp, false)
+
+! 9anime.to
+9animetv.to,9anime.*,9-anime.com,9animes.*##+js(abort-current-inline-script.js, Math, break)
+9animetv.to,9anime.*,9-anime.com,9animes.*##+js(abort-current-script.js, document.documentElement, break)
+
+! s3embtaku.pro
+s3embtaku.pro##+js(abort-current-script.js, document.documentElement, break)
+
+! fstream365.com
+fstream365.com##+js(abort-current-script.js, document.documentElement, break)
+
+! odiadance.com
+odiadance.com##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! streamtape.com
+@@*/prebid.min.js|$script,domain=watchadsontape.com
+watchadsontape.com##+js(no-window-open-if.js)
+watchadsontape.com##+js(abort-current-inline-script.js, document.createElement, script)
+
+! q34r.org
+q34r.org##+js(no-window-open-if.js)
+
+! kyiv.ua
+kyiv.ua##+js(remove-node-text.js, script, mdpDeblocker)
+
+! in91vip.win
+in91vip.win##+js(abort-current-script.js, document.querySelectorAll, popMagic)
+
+! solewe.com
+solewe.com##+js(noeval-if.js, DOMContentLoaded, showModal)
+
+! igay69.com
+igay69.com##+js(abort-current-inline-script.js, decodeURIComponent, ai_)
+igay69.com##+js(no-window-open-if.js)
+
+! pawastreams.pro
+pawastreams.pro##+js(no-setTimeout-if.js, ai_adb)
+
+! computer76.ru
+computer76.ru##+js(no-setTimeout-if.js, ai_adb)
+
+! camhub.tv
+camhub.*##+js(abort-on-property-read.js, open)
+
+! listeamed.net
+*$xmlhttprequest,third-party,redirect-rule=nooptext,domain=listeamed.net
+listeamed.net##+js(no-window-open-if.js)
+
+! animeunity.tv
+animeunity.*##+js(abort-current-script.js, document.documentElement, break)
+
+! vixcloud.co
+vixcloud.co##+js(abort-current-script.js, document.documentElement, break)
