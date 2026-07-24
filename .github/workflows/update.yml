@@ -1,0 +1,112 @@
+name: Generate Blacklist
+on: 
+  push:
+    branches: [ main ]
+  schedule:
+  - cron: 0 */8 * * *
+
+env:
+  TZ: Asia/Shanghai
+  SMARTDNS_URL: https://github.com/pymumu/smartdns/releases/latest/download/smartdns-x86_64
+  SMARTDNS_PATH: /tmp/smartdns
+  SINGBOX_VERSION: 1.12.1
+  MIHOMO_VERSION: 1.19.12
+
+jobs:
+  Generate_Blacklist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@main
+
+      - name: Setup Python 3.9.x
+        uses: actions/setup-python@main
+        with:
+          python-version: '3.9.x'
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y wget gzip
+          sudo timedatectl set-timezone "$TZ"
+          python -m pip install --upgrade pip
+          pip install -U tld IPy dnspython httpx loguru
+
+      - name: Setup SmartDNS
+        run: |
+          mkdir -p $SMARTDNS_PATH
+          wget $SMARTDNS_URL -O $SMARTDNS_PATH/smartdns
+          chmod +x $SMARTDNS_PATH/smartdns
+          cp smartdns.conf $SMARTDNS_PATH/smartdns.conf
+          nohup $SMARTDNS_PATH/smartdns -f -x -c $SMARTDNS_PATH/smartdns.conf > /dev/null 2>&1 &
+
+      - name: Update Filters
+        id: update
+        run: |
+          python adblock.py
+          rm -rf __pycache__
+          rm -rf app/__pycache__
+          echo "message=$(date)" >> $GITHUB_OUTPUT
+
+      - name: Compile Sing-Box filters
+        run: |
+          wget https://github.com/SagerNet/sing-box/releases/download/v${{env.SINGBOX_VERSION}}/sing-box-${{env.SINGBOX_VERSION}}-linux-amd64.tar.gz
+          tar -zxvf sing-box-${{env.SINGBOX_VERSION}}-linux-amd64.tar.gz
+          chmod +x sing-box-${{env.SINGBOX_VERSION}}-linux-amd64/sing-box
+          ./sing-box-${{env.SINGBOX_VERSION}}-linux-amd64/sing-box rule-set compile --output rules/adblocksingbox.srs     rules/adblocksingbox.json
+          ./sing-box-${{env.SINGBOX_VERSION}}-linux-amd64/sing-box rule-set compile --output rules/adblocksingboxlite.srs rules/adblocksingboxlite.json
+          rm -rf sing-box*
+      
+      - name: Compile mihomo filters
+        run: |
+          wget https://github.com/MetaCubeX/mihomo/releases/download/v${{env.MIHOMO_VERSION}}/mihomo-linux-amd64-v${{env.MIHOMO_VERSION}}.gz
+          gzip -d mihomo-linux-amd64-v${{env.MIHOMO_VERSION}}.gz
+          chmod +x mihomo-linux-amd64-v${{env.MIHOMO_VERSION}}
+          ./mihomo-linux-amd64-v${{env.MIHOMO_VERSION}} convert-ruleset domain yaml rules/adblockmihomo.yaml     rules/adblockmihomo.mrs
+          ./mihomo-linux-amd64-v${{env.MIHOMO_VERSION}} convert-ruleset domain yaml rules/adblockmihomolite.yaml rules/adblockmihomolite.mrs
+          rm -rf mihomo*
+
+      - name: Generate Blacklist
+        run: |
+          python blacklist.py
+          rm -rf __pycache__
+          rm -rf app/__pycache__
+          echo "message=$(date)" >> $GITHUB_OUTPUT
+
+      - name: Commit Changes
+        id: commit
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then 
+              exit 0
+          else
+            echo "status=success" >> $GITHUB_OUTPUT
+            git add .
+            git config --local user.email "cyj@programmer.net"
+            git config --local user.name "chengyujia"
+            git commit -m "Updated at $(date)" -a
+            git checkout --orphan temporary
+            git add .
+            git commit -m "Updated at $(date)"
+            git branch -D main
+            git branch -m main
+            git branch --set-upstream-to=origin/main
+          fi
+            
+      - name: GitHub Push
+        if: steps.commit.outputs.status == 'success' && !cancelled()
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          force_with_lease: true
+          
+      - name: Refsh CDN Cache
+        run: |
+          python refreshcdn.py
+          
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 5

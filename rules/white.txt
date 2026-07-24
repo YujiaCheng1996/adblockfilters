@@ -1,0 +1,82 @@
+# https://github.com/217heidai/adblockfilters/issues/25
+knicks.jd.com
+# https://github.com/217heidai/adblockfilters/issues/29
+cmts.iqiyi.com
+# https://github.com/217heidai/adblockfilters/issues/32
+paypalobjects.com
+www.paypalobjects.com
+# https://github.com/217heidai/adblockfilters/issues/35
+statics.123pan.com
+# https://github.com/217heidai/adblockfilters/issues/37
+nj.t.bcsp2p.baidu.com
+# https://github.com/217heidai/adblockfilters/issues/59
+vv.video.qq.com
+# https://github.com/217heidai/adblockfilters/issues/66
+tracker.ai.xiaomi.com
+# https://github.com/217heidai/adblockfilters/issues/82
+staticsns.cdn.bcebos.com
+# https://github.com/217heidai/adblockfilters/issues/84
+jnn-pa.googleapis.com
+# https://github.com/217heidai/adblockfilters/issues/92
+a0.app.xiaomi.com
+# https://github.com/217heidai/adblockfilters/issues/105
+api.vip.miui.com
+# https://github.com/217heidai/adblockfilters/issues/108
+wtradv.market.xiaomi.com
+api.comm.miui.com
+# https://github.com/217heidai/adblockfilters/issues/108
+statusapi.micloud.xiaomi.net
+# https://github.com/217heidai/adblockfilters/issues/111
+vk.com
+# https://github.com/217heidai/adblockfilters/issues/113
+app.chat.xiaomi.net
+cn.app.chat.xiaomi.net
+# https://github.com/217heidai/adblockfilters/issues/116
+alimama.com
+# https://github.com/217heidai/adblockfilters/issues/117
+17u.cn
+# https://github.com/217heidai/adblockfilters/issues/126
+testingcf.jsdelivr.net
+testingcf.jsdelivr.net.cdn.cloudflare.net
+# https://github.com/217heidai/adblockfilters/issues/127
+chat.bilibili.com
+# https://github.com/217heidai/adblockfilters/issues/131
+*/ad_
+# https://github.com/217heidai/adblockfilters/issues/132
+lf3-data.volccdn.com
+# https://github.com/217heidai/adblockfilters/issues/136
+revanced.net
+# https://github.com/217heidai/adblockfilters/issues/140
+conn1.coloros.com
+conn2.coloros.com
+conn3.coloros.com
+conn4.coloros.com
+conn5.coloros.com
+# https://github.com/217heidai/adblockfilters/issues/145
+amdc.m.taobao.com
+# https://github.com/217heidai/adblockfilters/issues/148
+lf6-cdn-tos.bytecdntp.com
+# https://github.com/217heidai/adblockfilters/issues/151
+vmat.gtimg.com
+# https://github.com/217heidai/adblockfilters/issues/153
+wl.jd.com
+# https://github.com/217heidai/adblockfilters/issues/160
+edith.xiaohongshu.com
+# https://github.com/217heidai/adblockfilters/issues/162
+ccc-x.jd.com
+# https://github.com/217heidai/adblockfilters/issues/169
+thm.market.xiaomi.com
+a.market.xiaomi.com
+t2.a.market.xiaomi.com
+t3.a.market.xiaomi.com
+t1.market.xiaomi.com
+t2.market.xiaomi.com
+t3.market.xiaomi.com
+t4.market.xiaomi.com
+t5.market.xiaomi.com
+fs-im-kefu.7moor-fs1.com
+# https://github.com/217heidai/adblockfilters/issues/175
+ads.privacy.qq.com
+rdelivery.qq.com
+# https://github.com/217heidai/adblockfilters/issues/178
+wximg.wxs.qq.com
